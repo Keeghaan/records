@@ -1,13 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState, useEffect } from 'react';
+import config from "./config.json";
 
 function App() {
+
+  useEffect(() =>
+  {
+    console.log(config.apiUrl);
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-      </header>
-    </div>
+   <>
+    Records
+   </>
   );
 }
 

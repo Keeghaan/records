@@ -1,7 +1,7 @@
-FROM node:20.11-slim
+FROM node:18
 
 WORKDIR /app
 
-COPY package.json /app
+COPY  . /app
 
 CMD ["/bin/bash", "/app/script.sh"]
