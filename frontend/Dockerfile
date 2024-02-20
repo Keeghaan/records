@@ -1,10 +1,7 @@
-FROM node:14
+FROM node:20.11-slim
 
 WORKDIR /app
 
-COPY "./script.sh" "/app/script.sh"
+COPY package.json /app
 
-RUN chmod +x /app/script.sh
-RUN apt update && apt upgrade -y
-
-ENTRYPOINT [ "/bin/bash", "/app/script.sh" ]
+CMD ["/bin/bash", "/app/script.sh"]
