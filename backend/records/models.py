@@ -5,4 +5,4 @@ class   Record(models.Model):
     text = models.TextField()
 
     def __str__(self):
-        return f"Record: {self.text}"
+        return str(self.text)

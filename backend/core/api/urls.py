@@ -7,5 +7,5 @@ router = DefaultRouter()
 router.registry.extend(record_router.registry)
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('', include(router.urls))
 ]

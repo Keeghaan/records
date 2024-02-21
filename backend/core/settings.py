@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-(0r7nuwptzn5-*_qi*$tgqolkc(z2i)%&0j9-b=eig7jxpcj)1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'records'
 ]
 
-CORS_ALLOWED_ORIGINS = ['http://localhost:3000']
+CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://localhost:8000']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -85,8 +85,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
-}
 
+
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
