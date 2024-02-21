@@ -53,3 +53,7 @@ def getOneRecord(request, pk):
     records = Record.objects.get(id=pk)
     serializer = RecordSerializer(records, many=False)
     return (Response(serializer.data))
+
+@api_view(['GET'])
+def pageNotFound(request, unmatched_path=None):
+    return (Response("This page doesn't exist"))

@@ -9,5 +9,6 @@ record_router.register(r'records', RecordViewSet)
 urlpatterns = [
     path('', views.getRoutes, name="routes"),
     path('records/', views.getRecords, name="records"),
-    path('records/<str:pk>', views.getOneRecord, name="record")
+    path('records/<str:pk>/', views.getOneRecord, name="record"),
+    path('<path:unmatched_path>', views.pageNotFound, name="error")
 ]
