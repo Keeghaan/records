@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import Record
 from .api.serializers import RecordSerializer
 from rest_framework.response import Response 
+from django.http import JsonResponse
 from rest_framework.decorators import api_view
 
 
@@ -9,9 +10,10 @@ from rest_framework.decorators import api_view
 @api_view(['GET'])
 def getRoutes(request):
 
-    routes = [ ...        
-    ]
-    return Response(routes)
+    return JsonResponse("Our api", safe=False)
+    # routes = [ ...        
+    # ]
+    # return Response(routes)
 
 @api_view(['GET'])
 def getRecords(request):
