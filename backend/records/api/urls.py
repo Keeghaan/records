@@ -7,5 +7,7 @@ record_router = DefaultRouter()
 record_router.register(r'records', RecordViewSet)
 
 urlpatterns = [
-    path('', views.getRoutes, name="routes")
+    path('', views.getRoutes, name="routes"),
+    path('records/', views.getRecords, name="records"),
+    path('records/<str:pk>', views.getOneRecord, name="record")
 ]
