@@ -2,18 +2,45 @@ from django.shortcuts import render
 from .models import Record
 from .api.serializers import RecordSerializer
 from rest_framework.response import Response 
-from django.http import JsonResponse
 from rest_framework.decorators import api_view
 
 
 # Create your views here.
 @api_view(['GET'])
 def getRoutes(request):
-
-    return JsonResponse("Our api", safe=False)
-    # routes = [ ...        
-    # ]
-    # return Response(routes)
+    routes = [     
+         {
+            'Endpoint': '/api/records',
+            'method': 'GET',
+            'body': None,
+            'description': 'Returns an array of records'
+        },
+        {
+            'Endpoint': '/api/records',
+            'method': 'GET',
+            'body': None,
+            'description': 'Returns a single record object'
+        },
+        {
+            'Endpoint': '/api/records/create/',
+            'method': 'POST',
+            'body': {'text': ""},
+            'description': 'Creates new record with data sent in post request'
+        },
+        {
+            'Endpoint': '/api/records/id/update/',
+            'method': 'PUT',
+            'body': {'text': ""},
+            'description': 'Creates an existing record with data sent in post request'
+        },
+        {
+            'Endpoint': '/api/records/id/delete/',
+            'method': 'DELETE',
+            'body': None,
+            'description': 'Deletes and exiting record'
+        }
+    ]
+    return Response(routes)
 
 @api_view(['GET'])
 def getRecords(request):
