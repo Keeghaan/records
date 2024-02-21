@@ -11,7 +11,8 @@ function App() {
   [
     data,
     setData
-  ] = useState([])
+  ] = useState([]);
+
   const endpoint = `${config.apiUrl}/records/`
 
   const fetchData = async() =>
@@ -24,7 +25,7 @@ function App() {
 
   const postData = async() =>
   {
-    const text = "Hello WoOooorld";
+    const text = "Huyuyuhuh";
 
     const response = await axios.post(endpoint, {text});
     console.log(response);
@@ -34,6 +35,8 @@ function App() {
   const handleSendData = async() =>
   {
     const newData = await postData();
+    if (newData)
+      setData(prevState => [...prevState, newData]);
   }
 
   useEffect(() =>
