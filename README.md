@@ -1,17 +1,20 @@
 # records
 
-You can run the project with the following project:
+You can run the project with the following project with sudo if needed:
 
 docker compose up --build
 
 it will launch the backend on port 8000 and frontend on 3000
+You can see the records in the backend at http://localhost:8000/api/records
+See the app at http://localhost:3000
+Click on the + to add a record, you can modify or delete it.
 
 --------------------------------------
 --------------------------------------
 
 
-you can clean by running the following command when you're done:
+you can clean by running the following command with sudo if needed when you're done:
 
 /bin/bash ./clean.sh
 
-it will remove node_modules et package-lock.json from the frontend, stop the containers and clear.
+it will remove node_modules et package-lock.json and db.sqlite3 from the frontend, stop the containers and clear.
