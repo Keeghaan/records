@@ -57,7 +57,7 @@ const RecordPage = () => {
         {
             try
             {
-                if (!record?.text)
+                if (!record?.text.length)
                     handleDeleteRecord();
                 else
                     await axios.put((endpoint), {"text": record?.text}, { headers: { 'Content-Type': 'application/json' } });
@@ -67,7 +67,7 @@ const RecordPage = () => {
                 console.error("handleUpdateRecord update error:", error);
             }
         }
-        else if (updated && id === 'new')
+        else if (id === 'new' && record?.text.length)
         {
             try
             {
@@ -102,7 +102,6 @@ const RecordPage = () => {
             <Link to="/">
                 <GrCaretPrevious />
             </Link>
-        </div>
         {
 
 
@@ -113,21 +112,25 @@ const RecordPage = () => {
                     value={record?.text}
                     onChange={(e) => id !== 'new' ? setRecord({...record, 'text': e.target.value}) :  setRecord({'text': e.target.value}) }
                 />
-                <button onClick={handleUpdateRecord}>{(id === 'new') ? 'Add record' : 'Update record'}</button>
+                <button onClick={handleUpdateRecord}>{(id === 'new') ? 'Add' : 'Update'}</button>
             </>
             : 
             <>
                 <p>{record?.text}</p>
                 <div className='update-or-delete'>
                     <button className='update-button' onClick={() =>
-                        { setUpdated(true)}}>Modify</button>
+                        { setUpdated(true)}}>
+                            Modify</button>
+                    this record or
                     <Link to="/">
-                        this record or 
-                        <button onClick={handleDeleteRecord}> delete <MdDelete /> </button> it
+                        <button onClick={handleDeleteRecord}> delete <MdDelete /></button>
+                    it
                     </Link>
+
                 </div>
             </>
         }
+        </div>
     </div>
   )
 }

@@ -9,7 +9,7 @@ record_router.register(r'records', RecordViewSet)
 urlpatterns = [
     path('', views.getRoutes, name="routes"),
     path('records/', views.getRecords, name="records"),
-    path('records/create', views.createRecord, name='create'),
+    path('records/create/', views.createRecord, name='create'),
     path('records/<pk>/update/', views.updateRecord, name="update"),
     path('records/<pk>/delete/', views.deleteRecord, name="delete"),
     path('records/<pk>/', views.getOneRecord, name="record"),
