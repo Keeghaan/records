@@ -28,13 +28,12 @@ const RecordsListPage = () => {
       {
           const response = await axios.get(endpoint);
           setData(response.data);
+          if (!response.data.length)
+            setNotFound(true);
           return (response.data);
       }
       catch(error)
       {
-        if (error.response.status === 404)
-          setNotFound(true)
-        else
           console.error("getData error:", error);
       }
     };
@@ -49,7 +48,7 @@ const RecordsListPage = () => {
       <div className='records'>
         <div className='records-header'>
           <h2 className='records-title'>
-            <WiAlien size={50}  /> Records <WiAlien size={50} />
+            <WiAlien size={50}  /> Your records <WiAlien size={50} />
           </h2>
         </div>
           <ul>
@@ -59,10 +58,10 @@ const RecordsListPage = () => {
                     {
                         return (<ListItem key={elem.id} elem={elem} />);
                     })
-                  : <></>
+                  : <>No records</>
               }        
           </ul>
-          <Link to="/record/new" className='add-button'>
+          <Link to="/record/new" className='add-button-icon'>
             <IoAddCircle />
           </Link>
           <p className='records-count'>{data.length} records</p> 

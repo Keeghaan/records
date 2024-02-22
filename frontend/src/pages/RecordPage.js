@@ -12,7 +12,7 @@ const RecordPage = () => {
     [
         record,
         setRecord
-    ] = useState({text: ""});
+    ] = useState({text: "Write Here"});
     
     const
     [
@@ -123,12 +123,12 @@ const RecordPage = () => {
            {
                 (updated || id === 'new')
                 ? <>
-                    <input
-                        type="text"
-                        value={record?.text.length ? record.text : ""}
+                    <textarea className='text-area'
+                        value={record?.text}
+                        onClick={() => setRecord({text: ""})}
                         onChange={(e) => id !== 'new' ? setRecord({...record, 'text': e.target.value}) :  setRecord({'text': e.target.value}) }
                     />
-                    <button onClick={handleUpdateRecord}>{(id === 'new') ? 'Add' : 'Update'}</button>
+                    <button className='add-button' onClick={handleUpdateRecord}>{(id === 'new') ? 'Add' : 'Update'}</button>
                 </>
                 : 
                 <>
