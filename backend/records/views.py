@@ -54,7 +54,7 @@ def getOneRecord(request, pk):
     serializer = RecordSerializer(record, many=False)
     return (Response(serializer.data))
 
-@api_view(["POST"])
+@api_view(['POST'])
 def createRecord(request):
     data = request.data
     newRecord = Record.objects.create(text=data['text'])
@@ -75,7 +75,7 @@ def updateRecord(request, pk):
 def deleteRecord(request, pk):
     record = Record.get(id=pk)
     record.delete()
-    return (Response(f"The record #${pk} was deleted"))
+    return (Response("record deleted"))
 
 @api_view(['GET'])
 def pageNotFound(request, unmatched_path=None):

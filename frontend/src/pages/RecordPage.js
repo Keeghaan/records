@@ -1,18 +1,18 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import config from "../config.json";
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { GrCaretPrevious } from "react-icons/gr";
-import { MdDelete } from "react-icons/md";
 
 const RecordPage = () => {
+    const   navigate = useNavigate();
     const   { id } = useParams();
     const   endpoint = `${config.apiUrl}/records/${id}/`;
     const
     [
         record,
         setRecord
-    ] = useState(null);
+    ] = useState({text: ""});
     
     const
     [
@@ -20,11 +20,21 @@ const RecordPage = () => {
         setUpdated
     ] = useState(false);
 
+    const
+    [
+        changePage,
+        setChangePage
+    ] = useState(false)
+
     useEffect(() =>
-    {
+    {;
+        if (changePage)
+        {
+            navigate("/");
+        }
         getRecordById();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [id]);
+    }, [id, changePage, navigate]);
 
     const   getRecordById = async() =>
     {
@@ -40,7 +50,10 @@ const RecordPage = () => {
                 }
                 catch (error)
                 {
-                    console.error("getRecordById error:", error);
+                    if (error.response.status === 404)
+                        navigate("/");
+                    else
+                        console.error("getRecordById error:", error);
                 }
             }
         }
@@ -61,6 +74,7 @@ const RecordPage = () => {
                     handleDeleteRecord();
                 else
                     await axios.put((endpoint), {"text": record?.text}, { headers: { 'Content-Type': 'application/json' } });
+                setChangePage(true);
             }
             catch (error)
             {
@@ -71,7 +85,8 @@ const RecordPage = () => {
         {
             try
             {
-                await axios.post(endpoint, {"text": record?.text}, {headers: {'Content-Type': 'application/json'}});
+                await axios.post(config.apiUrl + "/records/", {"text": record?.text}, {headers: {'Content-Type': 'application/json'}});
+                setChangePage(true)
             }
             catch (error)
             {
@@ -88,6 +103,7 @@ const RecordPage = () => {
             try
             {
                 await axios.delete(endpoint, {'Content-Type': 'application/json'})
+                setChangePage(true);
             }
             catch (error)
             {
@@ -102,34 +118,29 @@ const RecordPage = () => {
             <Link to="/">
                 <GrCaretPrevious />
             </Link>
-        {
-
-
-            (updated || id === 'new')
-            ? <>
-                <input
-                    type="text"
-                    value={record?.text}
-                    onChange={(e) => id !== 'new' ? setRecord({...record, 'text': e.target.value}) :  setRecord({'text': e.target.value}) }
-                />
-                <button onClick={handleUpdateRecord}>{(id === 'new') ? 'Add' : 'Update'}</button>
-            </>
-            : 
-            <>
-                <p>{record?.text}</p>
-                <div className='update-or-delete'>
-                    <button className='update-button' onClick={() =>
-                        { setUpdated(true)}}>
-                            Modify</button>
-                    this record or
-                    <Link to="/">
-                        <button onClick={handleDeleteRecord}> delete <MdDelete /></button>
-                    it
-                    </Link>
-
-                </div>
-            </>
-        }
+        </div>
+        <div className='record-updates'>
+           {
+                (updated || id === 'new')
+                ? <>
+                    <input
+                        type="text"
+                        value={record?.text.length ? record.text : ""}
+                        onChange={(e) => id !== 'new' ? setRecord({...record, 'text': e.target.value}) :  setRecord({'text': e.target.value}) }
+                    />
+                    <button onClick={handleUpdateRecord}>{(id === 'new') ? 'Add' : 'Update'}</button>
+                </>
+                : 
+                <>
+                    <div className='record-text'>{record?.text}</div>
+                    <div className='record-update'>
+                        <button className='update-button' onClick={() =>
+                            { setUpdated(true)}}>
+                                Modify</button>
+                        <button className='delete-button' onClick={handleDeleteRecord}>Delete</button>
+                    </div>
+                </>
+            }
         </div>
     </div>
   )

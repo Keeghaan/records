@@ -5,7 +5,7 @@ const ListItem = ({elem}) => {
   return (
     <Link to={`/record/${elem.id}`}>
       <div className='records-list-item'>
-        <li>{elem.text}</li>
+        <li>Record #{elem.id}</li>
       </div>
     </Link>
   )

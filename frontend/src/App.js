@@ -1,5 +1,4 @@
 import './App.css';
-import Header from './components/Header';
 import RecordsListPage from './pages/RecordsListPage';
 import RecordPage from './pages/RecordPage';
 import {
@@ -7,6 +6,7 @@ import {
   Route,
   Routes
 } from "react-router-dom"
+import NotFound from './pages/NotFound';
 
 function App() {
 
@@ -14,11 +14,11 @@ function App() {
     <Router>
         <div className='container dark'>
           <div className='app'>
-              <Header />
               <Routes>
-                <Route path="/" exact element={<RecordsListPage />}/>
-                <Route path="/record/:id" element={<RecordPage />}/>
-              </Routes>
+                <Route path="/" exact element={<RecordsListPage />} />
+                <Route path="/record/:id" element={<RecordPage />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>           
           </div>
         </div>
     </Router>
