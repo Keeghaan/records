@@ -43,10 +43,10 @@ body {
 
 .records-title {
   color: rgb(11, 68, 11);
-  font-size: 2em;
+  font-size: 24px;
   font-weight: 600;
   display: flex;
-  padding-left: 40%;
+  padding-left: 25%
 }
 
 .records-count {

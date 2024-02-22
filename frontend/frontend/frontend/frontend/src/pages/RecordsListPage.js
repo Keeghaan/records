@@ -48,7 +48,7 @@ const RecordsListPage = () => {
       <div className='records'>
         <div className='records-header'>
           <h2 className='records-title'>
-            <WiAlien size={60} /> Records <WiAlien size={60} />
+            <WiAlien size={50}  /> Your records <WiAlien size={50} />
           </h2>
         </div>
           <ul>
