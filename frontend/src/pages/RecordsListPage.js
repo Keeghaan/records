@@ -12,7 +12,7 @@ const RecordsListPage = () => {
     ] = useState([]);
   
     const endpoint = `${config.apiUrl}/records/`
-  
+
     const getData = async() =>
     {
       const response = await axios.get(endpoint);
@@ -40,6 +40,7 @@ const RecordsListPage = () => {
     useEffect(() =>
     {
         getData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
   return (
