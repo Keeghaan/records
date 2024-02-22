@@ -3,6 +3,7 @@ import config from '../config.json'
 import axios from 'axios';
 import ListItem from '../components/ListItem';
 import { WiAlien } from 'react-icons/wi';
+import AddButton from '../components/AddButton';
 
 const RecordsListPage = () => {
 
@@ -16,27 +17,17 @@ const RecordsListPage = () => {
 
     const getData = async() =>
     {
-      const response = await axios.get(endpoint);
-      setData(response.data);
-      console.log(data);
-      return (data);
+      try
+      {
+          const response = await axios.get(endpoint);
+          setData(response.data);
+          return (response.data);
+      }
+      catch(error)
+      {
+        console.error("getData error:", error);
+      }
     };
-  
-    const postData = async() =>
-    {
-      const text = "Huyuyuhuh";
-  
-      const response = await axios.post(endpoint, {text});
-      console.log(response);
-      return (response.data);
-    }
-  
-    const handleSendData = async() =>
-    {
-      const newData = await postData();
-      if (newData)
-        setData(prevState => [...prevState, newData]);
-    }
   
     useEffect(() =>
     {
@@ -60,7 +51,7 @@ const RecordsListPage = () => {
                 })
             }        
         </ul>
-        <button onClick={handleSendData}>create new record</button>
+        <AddButton />
     </div>
   )
 }

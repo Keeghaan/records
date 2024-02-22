@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import config from "../config.json";
 import { useParams, Link } from 'react-router-dom';
 import { GrCaretPrevious } from "react-icons/gr";
+import { MdDelete } from "react-icons/md";
 
 const RecordPage = () => {
     const   { id } = useParams();
@@ -27,31 +28,73 @@ const RecordPage = () => {
 
     const   getRecordById = async() =>
     {
-        const   response = await axios.get(endpoint)
-            .catch((error) =>
+        try
+        {
+            if (id !== 'new')
             {
-                console.error(error);
-            })
-        console.log("res", response.data);
-        setRecord(response.data);
-        return (response.data);
+                try
+                {
+                    const   response = await axios.get(endpoint)
+                    setRecord(response.data);
+                    return (response.data);
+                }
+                catch (error)
+                {
+                    console.error("getRecordById error:", error);
+                }
+            }
+        }
+        catch (error)
+        {
+            console.error(error);
+        }
+
     };
 
     const   handleUpdateRecord = async() =>
     {
-        if (updated)
+        if (updated && id !== 'new')
         {
             try
             {
-                await axios.put(endpoint, {"text": record.text}, { headers: { 'Content-Type': 'application/json' } });
+                if (!record?.text)
+                    handleDeleteRecord();
+                else
+                    await axios.put((endpoint), {"text": record?.text}, { headers: { 'Content-Type': 'application/json' } });
             }
             catch (error)
             {
-                console.error(error);
+                console.error("handleUpdateRecord update error:", error);
             }
-            setUpdated(false);
         }
+        else if (updated && id === 'new')
+        {
+            try
+            {
+                await axios.post(endpoint, {"text": record?.text}, {headers: {'Content-Type': 'application/json'}});
+            }
+            catch (error)
+            {
+                console.error("handleUpdateRecord create error:", error);
+            }
+        }
+        setUpdated(false);
     };
+
+    const   handleDeleteRecord = async() =>
+    {
+        if (id !== 'new')
+        {
+            try
+            {
+                await axios.delete(endpoint, {'Content-Type': 'application/json'})
+            }
+            catch (error)
+            {
+                console.error("handleDeleteRecord", error);
+            }
+        }    
+    }
 
   return (
     <div className='record'>
@@ -61,23 +104,29 @@ const RecordPage = () => {
             </Link>
         </div>
         {
-            (updated)
-            ? 
-            <>
+
+
+            (updated || id === 'new')
+            ? <>
                 <input
                     type="text"
                     value={record?.text}
-                    onChange={(e) => setRecord({...record, 'text': e.target.value})}
+                    onChange={(e) => id !== 'new' ? setRecord({...record, 'text': e.target.value}) :  setRecord({'text': e.target.value}) }
                 />
-                <button onClick={handleUpdateRecord}>Update</button>
+                <button onClick={handleUpdateRecord}>{(id === 'new') ? 'Add record' : 'Update record'}</button>
             </>
             : 
             <>
                 <p>{record?.text}</p>
-                <button onClick={() =>
-                    { setUpdated(true)}}>Modify this record</button>
+                <div className='update-or-delete'>
+                    <button className='update-button' onClick={() =>
+                        { setUpdated(true)}}>Modify</button>
+                    <Link to="/">
+                        this record or 
+                        <button onClick={handleDeleteRecord}> delete <MdDelete /> </button> it
+                    </Link>
+                </div>
             </>
-
         }
     </div>
   )
