@@ -1,7 +1,7 @@
-import React from 'react'
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import config from '../config.json'
 import axios from 'axios';
+import ListItem from '../components/ListItem';
 
 const RecordsListPage = () => {
 
@@ -13,7 +13,7 @@ const RecordsListPage = () => {
   
     const endpoint = `${config.apiUrl}/records/`
   
-    const fetchData = async() =>
+    const getData = async() =>
     {
       const response = await axios.get(endpoint);
       setData(response.data);
@@ -39,13 +39,18 @@ const RecordsListPage = () => {
   
     useEffect(() =>
     {
-      fetchData();
-    }, [])
+        getData();
+    }, []);
 
   return (
-    <div>
+    <div className='records-list'>
         <ul>
-            { data.map(elem => <li key={elem.id}>{elem.text}</li>) }        
+            {
+                data.map((elem) =>
+                {
+                    return (<ListItem key={elem.id} elem={elem} />);
+                })
+            }        
         </ul>
         <button onClick={handleSendData}>create new record</button>
     </div>
