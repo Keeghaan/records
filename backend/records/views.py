@@ -50,8 +50,18 @@ def getRecords(request):
 
 @api_view(['GET'])
 def getOneRecord(request, pk):
-    records = Record.objects.get(id=pk)
-    serializer = RecordSerializer(records, many=False)
+    record = Record.objects.get(id=pk)
+    serializer = RecordSerializer(record, many=False)
+    return (Response(serializer.data))
+
+@api_view(['PUT'])
+def updateRecord(request, pk):
+    data = request.data
+    record = Record.objects.get(id=pk)
+    print(data)
+    serializer = RecordSerializer(record, data=data)
+    if (serializer.is_valid()):
+        serializer.save()
     return (Response(serializer.data))
 
 @api_view(['GET'])

@@ -42,7 +42,17 @@ INSTALLED_APPS = [
     'records.apps.RecordsConfig'
 ]
 
-CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://localhost:8000']
+# CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://localhost:8000']
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

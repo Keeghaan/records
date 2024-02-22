@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import config from '../config.json'
 import axios from 'axios';
 import ListItem from '../components/ListItem';
+import { WiAlien } from 'react-icons/wi';
 
 const RecordsListPage = () => {
 
@@ -44,8 +45,14 @@ const RecordsListPage = () => {
     }, []);
 
   return (
-    <div className='records-list'>
-        <ul>
+    <div className='records'>
+      <div className='records-header'>
+        <h2 className='records-title'>
+          <WiAlien size={50}  /> Records <WiAlien size={50} />
+        </h2>
+        <p className='records-count'>{data.length} records</p>
+      </div>
+         <ul>
             {
                 data.map((elem) =>
                 {
