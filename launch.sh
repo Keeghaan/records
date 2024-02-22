@@ -4,11 +4,11 @@ source env/bin/activate
 
 cd backend
 
-python manage.py makemigrations
+python3 manage.py makemigrations
 
 chmod +666 db.sqlite3
 
-python manage.py migrate
+python3 manage.py migrate
 
 cd ..
 
