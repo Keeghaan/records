@@ -45,12 +45,12 @@ function App() {
   }, [])
 
   return (
-   <>
+   <div className='App'>
       <ul>
         { data.map(elem => <li key={elem.id}>{elem.text}</li>) }        
       </ul>
       <button onClick={handleSendData}>create new record</button>
-   </>
+   </div>
   );
 }
 
